@@ -1,0 +1,14 @@
+﻿.branchContact {
+    padding: 12px 0 16 px 0;
+    font-size: 1.2em;
+}
+
+#patronHasFees {
+    color: #c62222;
+    font-weight: bold;
+}
+
+#patronNoFees {
+    color: #2f6fc7;
+    font-weight: bold;
+}

@@ -32,8 +32,11 @@ namespace LibraryApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // Adding LibraryAssetServices
             services.AddSingleton(Configuration);
+            // Inject ILibraryAsset project to the LibraryApp project. 
             services.AddScoped<ILibraryAsset, LibraryAssetService>();
-            // Connection of LibraryData project to the LibraryApp project. 
+            // Inject ICheckout project to the LibraryApp project. 
+            services.AddScoped<ICheckout, CheckoutService>();
+
             services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
         }
