@@ -12,6 +12,7 @@ namespace LibraryApp
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,9 +20,17 @@ namespace LibraryApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime.
+        // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<LibraryContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -29,16 +38,12 @@ namespace LibraryApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // Adding LibraryAssetServices
-            services.AddSingleton(Configuration);
             // Inject ILibraryAsset project to the LibraryApp project. 
             services.AddScoped<ILibraryAsset, LibraryAssetService>();
             // Inject ICheckout project to the LibraryApp project. 
             services.AddScoped<ICheckout, CheckoutService>();
 
-            services.AddDbContext<LibraryContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

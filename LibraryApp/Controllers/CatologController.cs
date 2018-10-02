@@ -14,14 +14,17 @@ namespace LibraryApp.Controllers
             _assets = assets;
         }
 
+        /**
+         * localhost:48777/Catalog/
+         */
         public IActionResult Index()
         {
             var assetModels = _assets.GetAll();
 
             // Maps data from assetModels to anonimus class
             // AssetIndexListingModel one to one.
-            var listingResults = assetModels
-                .Select(result => new AssetIndexListingModel {
+            var listingResults = assetModels.Select
+                (result => new AssetIndexListingModel {
                     Id = result.Id,
                     ImageUrl = result.ImageUrl,
                     AuthorOrDirector = _assets.GetAuthorOrDirector(result.Id),

@@ -3,7 +3,7 @@
 // Just a different type of asses shuch as a Book
 namespace LibraryData.Models
 {
-    public class Video: LibraryAsset
+    public class Video : LibraryAsset
     {
         [Required]
         public string Director { get; set; }

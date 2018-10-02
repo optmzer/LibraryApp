@@ -21,6 +21,7 @@ namespace LibraryData.Models
 
         // Creates FK relationship between LibraryAsset and 
         // a particular LibraryBranch
+        // and lazy load(partial load)
         public virtual LibraryBranch Location { get; set; }
     }
 }
