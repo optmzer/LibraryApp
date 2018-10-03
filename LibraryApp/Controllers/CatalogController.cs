@@ -5,17 +5,17 @@ using System.Linq;
 
 namespace LibraryApp.Controllers
 {
-    public class CatologController: Controller
+    public class CatalogController : Controller
     {
         private ILibraryAsset _assets;
 
-        public CatologController(ILibraryAsset assets)
+        public CatalogController(ILibraryAsset assets)
         {
             _assets = assets;
         }
 
         /**
-         * localhost:48777/Catalog/
+         * localhost:44338/Catalog/
          */
         public IActionResult Index()
         {
@@ -23,8 +23,8 @@ namespace LibraryApp.Controllers
 
             // Maps data from assetModels to anonimus class
             // AssetIndexListingModel one to one.
-            var listingResults = assetModels.Select
-                (result => new AssetIndexListingModel {
+            var listingResult = assetModels.Select(result => 
+                new AssetIndexListingModel {
                     Id = result.Id,
                     ImageUrl = result.ImageUrl,
                     AuthorOrDirector = _assets.GetAuthorOrDirector(result.Id),
@@ -34,15 +34,15 @@ namespace LibraryApp.Controllers
                 });
 
             var model = new AssetIndexModel()
-            {
-                Assets = listingResults
+            {// Contains AssetIndexListingModel
+                Assets = listingResult
             };
 
             return View(model);
         }
 
         /**
-         * localhost:48777/Catalog/Detail/{int: Id}
+         * localhost:44338/Catalog/Detail/{int: Id}
          */
         public IActionResult Detail(int id)
         {

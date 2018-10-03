@@ -24,9 +24,15 @@ namespace LibraryApp
         // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddSingleton(Configuration);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // Adding LibraryAssetServices
+            // Inject ILibraryAsset project to the LibraryApp project. 
+            services.AddScoped<ILibraryAsset, LibraryAssetService>();
+            // Inject ICheckout project to the LibraryApp project. 
+            services.AddScoped<ICheckout, CheckoutService>();
 
             services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -37,12 +43,6 @@ namespace LibraryApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            // Adding LibraryAssetServices
-            // Inject ILibraryAsset project to the LibraryApp project. 
-            services.AddScoped<ILibraryAsset, LibraryAssetService>();
-            // Inject ICheckout project to the LibraryApp project. 
-            services.AddScoped<ICheckout, CheckoutService>();
 
         }
 

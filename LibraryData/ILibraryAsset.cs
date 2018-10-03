@@ -1,7 +1,5 @@
 ﻿using LibraryData.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LibraryData
 {
@@ -12,7 +10,7 @@ namespace LibraryData
         LibraryAsset GetById(int id);
 
         // ==============
-        void AddNewAsset(LibraryAsset asset);
+        void AddNewAsset(LibraryAsset asset);// Originally called Add(newAsset)
 
         string GetAuthorOrDirector(int id);
 
@@ -20,7 +18,7 @@ namespace LibraryData
 
         string GetType(int id);
 
-        string GetTytle(int id);
+        string GetTitle(int id);
 
         string GetIsbn(int id);
         

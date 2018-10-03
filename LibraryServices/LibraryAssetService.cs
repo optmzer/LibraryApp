@@ -1,7 +1,6 @@
 ﻿using LibraryData;
 using LibraryData.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,7 +54,9 @@ namespace LibraryServices
         public LibraryBranch GetCurrentLocation(int id)
         { // or symply 
             // return GetById(id).Location;
-            return _context.LibraryAssets.FirstOrDefault(asset => asset.Id == id).Location;
+            return _context.LibraryAssets
+                .FirstOrDefault(asset => asset.Id == id)
+                .Location;
         }
 
         public string GetDeweyIndex(int id)
@@ -63,7 +64,9 @@ namespace LibraryServices
             // As video does not have dewey index by the setup.
             if(_context.Books.Any(book => book.Id == id))
             {
-                return _context.Books.FirstOrDefault(book => book.Id == id).DeweyIndex;
+                return _context.Books
+                    .FirstOrDefault(book => book.Id == id)
+                    .DeweyIndex;
             }
            
             return "";
@@ -73,13 +76,15 @@ namespace LibraryServices
         {
             if (_context.Books.Any(book => book.Id == id))
             {
-                return _context.Books.FirstOrDefault(book => book.Id == id).ISBN;
+                return _context.Books
+                    .FirstOrDefault(book => book.Id == id)
+                    .ISBN;
             }
 
             return "";
         }
 
-        public string GetTytle(int id)
+        public string GetTitle(int id)
         {
             return _context.LibraryAssets
                 .FirstOrDefault(asset => asset.Id == id)
@@ -87,17 +92,23 @@ namespace LibraryServices
         }
 
         public string GetType(int id)
-        {
-            return _context.LibraryAssets
-                .FirstOrDefault(asset => asset.Id == id)
-                .GetType()
-                .ToString();
+        {// My version
+            //return _context.LibraryAssets
+            //    .FirstOrDefault(asset => asset.Id == id)
+            //   .GetType()
+            //    .ToString();
+            var book = _context.LibraryAssets.OfType<Book>()
+                .Where(b => b.Id == id);
+
+            return book.Any() ? "Book" : "Video";
         }
 
         public string GetAuthorOrDirector(int id)
         {
-            var isBook = _context.LibraryAssets.OfType<Book>()
-                .Where(asset => asset.Id == id).Any();
+            var isBook = _context.LibraryAssets
+                .OfType<Book>()
+                .Where(asset => asset.Id == id)
+                .Any();
 
             //var isVideo = _context.LibraryAssets.OfType<Video>()
              //   .Where(asset => asset.Id == id).Any();
@@ -107,12 +118,9 @@ namespace LibraryServices
              * (If for some reason tertiary operator returns Null coalescing operator will return "Unknown"
              */
             return isBook
-               ?
-               _context.Books.FirstOrDefault(book => book.Id == id).Author
-               :
-               _context.Videos.FirstOrDefault(video => video.Id == id).Director
-               ??
-               "Author/Director Unknown";
+               ? _context.Books.FirstOrDefault(book => book.Id == id).Author
+               : _context.Videos.FirstOrDefault(video => video.Id == id).Director
+               ?? "Author/Director Unknown";
         }
     }
 }
