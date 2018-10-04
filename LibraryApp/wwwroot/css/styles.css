@@ -1,5 +1,64 @@
-﻿.branchContact {
-    padding: 12px 0 16 px 0;
+﻿.logo {
+    font-family: "Coda";
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.logo > a {
+    color: #ddd;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+.logo > a:hover {
+    color: #fff;
+    transition: ease;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+.page-content {
+    padding: 20px;
+    margin: 10px auto;
+}
+
+.page-heading {
+    color: #e9e8e7;
+}
+
+.splash {
+    background-image: url("/images/catalog.png");
+    background-repeat: no-repeat;
+    min-height: 200px;
+}
+
+.card-icon {
+    color: #777;
+    font-size: 40px;
+    padding: 24px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+
+
+/**/
+
+
+
+/**/
+
+.branchContact {
+    padding: 12px 0 16px 0;
     font-size: 1.2em;
 }
 
