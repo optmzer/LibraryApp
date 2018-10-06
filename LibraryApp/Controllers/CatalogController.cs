@@ -1,4 +1,5 @@
 ﻿using LibraryApp.Models.Catalog;
+using LibraryApp.Models.CheckoutModels;
 using LibraryData;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -76,6 +77,80 @@ namespace LibraryApp.Controllers
             };
 
             return View(model);
+        }
+
+        /**
+         * Checkout confirm page 
+         */
+        public IActionResult CheckOut(int id)
+        {
+            var asset = _assets.GetById(id);
+
+            var model = new CheckoutModel
+            {
+                AssetId = id,
+                ImageUrl = asset.ImageUrl,
+                Title = asset.Title,
+                LibraryCardId = "",
+                IsCheckedOut = _checkouts.IsCheckedOut(id)
+            };
+
+            return View(model);
+        }
+
+        public IActionResult CheckIn(int id)
+        {
+            _checkouts.CheckinItem(id);
+            return RedirectToAction("Detail", new { id = id });
+        }
+
+        public IActionResult Hold(int id)
+        {
+            var asset = _assets.GetById(id);
+
+            var model = new CheckoutModel
+            {
+                AssetId = id,
+                ImageUrl = asset.ImageUrl,
+                Title = asset.Title,
+                LibraryCardId = "",
+                IsCheckedOut = _checkouts.IsCheckedOut(id),
+                HoldCount = _checkouts.GetCurrentHolds(id).Count()
+            };
+
+            return View(model);
+        }
+
+        public IActionResult MarkLost(int id)
+        {
+            _checkouts.MarkLost(id);
+            return RedirectToAction("Detail", new { id = id });
+        }
+
+        public IActionResult MarkFound(int id)
+        {
+            _checkouts.MarkFound(id);
+            return RedirectToAction("Detail", new { id = id });
+        }
+
+        /**
+         * Because we submitting this action from a form we use
+         * [HttpPost] attriute. 
+         * Meaning this action only supports HttpPost method
+         */
+        [HttpPost]
+        public IActionResult PlaceCheckout(int assetId, int libraryCardId)
+        {
+            _checkouts.CheckoutItem(assetId, libraryCardId);
+            
+            return RedirectToAction("Detail", new { id = assetId });
+        }
+
+        [HttpPost]
+        public IActionResult PlaceHold(int assetId, int libraryCardId)
+        {
+            _checkouts.PlaceHold(assetId, libraryCardId);
+            return RedirectToAction("Detail", new { id = assetId });
         }
 
 

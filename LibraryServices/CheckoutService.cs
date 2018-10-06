@@ -119,7 +119,7 @@ namespace LibraryServices
             }
         }
 
-        public void CheckinItem(int assetId, int libraryCardId)
+        public void CheckinItem(int assetId)
         {
             var now = DateTime.Now;
             var item = _context.LibraryAssets
@@ -145,10 +145,15 @@ namespace LibraryServices
             if (currentHolds.Any())
             {
                 CheckoutToEarliestHold(assetId, currentHolds);
+                //He puts return statemnt inhere. Why?
+                //return;
+            }
+            else
+            {
+                // else update the item to available.
+                UpdateAssetStatus(assetId, "Available");
             }
 
-            // else update the item to available.
-            UpdateAssetStatus(assetId, "Available");
             _context.SaveChanges();
         }
 
@@ -170,7 +175,7 @@ namespace LibraryServices
         {
             var now = DateTime.Now;
 
-            if (IsCheckedout(assetId))
+            if (IsCheckedOut(assetId))
             {
                 // Might add some logic to notify the user
                 return;
@@ -212,7 +217,7 @@ namespace LibraryServices
             return now.AddDays(30);
         }
 
-        private bool IsCheckedout(int assetId)
+        public bool IsCheckedOut(int assetId)
         {
             // Returns true if any checkout exists
             // else false.
@@ -228,6 +233,7 @@ namespace LibraryServices
 
             var asset = _context
                 .LibraryAssets
+                .Include(a => a.Status)
                 .FirstOrDefault(a => a.Id == assetId);
 
             var card = _context.
