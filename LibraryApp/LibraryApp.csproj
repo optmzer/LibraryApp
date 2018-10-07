@@ -15,4 +15,8 @@
     <ProjectReference Include="..\LibraryServices\LibraryServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Branches\" />
+  </ItemGroup>
+
 </Project>
