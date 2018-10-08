@@ -33,6 +33,8 @@ namespace LibraryApp
             services.AddScoped<ILibraryAsset, LibraryAssetService>();
             // Inject ICheckout project to the LibraryApp project. 
             services.AddScoped<ICheckout, CheckoutService>();
+            // Injects IPatron interface into LibraryApp.
+            services.AddScoped<IPatron, PatronService>();
 
             services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
