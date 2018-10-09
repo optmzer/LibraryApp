@@ -25,7 +25,7 @@ namespace LibraryServices
 
         private static string TimeToString(int time)
         {
-            /*
+            /* My solution.
             string[] hours = new string[] {
                 "00", "01", "02", "03",
                 "04", "05", "06", "07",
@@ -37,6 +37,7 @@ namespace LibraryServices
 
             return hours[time];
             */
+            // Yet simplier one.
             return TimeSpan.FromHours(time).ToString("HH':'MM");
 
         }

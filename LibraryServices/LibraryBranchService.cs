@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace LibraryServices
 {
@@ -52,17 +51,36 @@ namespace LibraryServices
                 .BranchHours
                 .Where(h => h.Branch.Id == branchId);
 
-            return 
+            return DataHelpers.BusinessHoursToDateString(hours);
         }
 
         public IEnumerable<Patron> GetAllPatrons(int branchId)
         {
-            throw new NotImplementedException();
+            return _context
+                .LibraryBranches
+                .Include(b => b.Patrons)
+                .FirstOrDefault(b => b.Id == branchId)
+                .Patrons;
         }
 
         public bool IsBranchOpen(int branchId)
         {
-            throw new NotImplementedException();
+            var timeNow = DateTime.Now;
+            var currentTimeHour = timeNow.Hour;
+            // Because DB is set for days of the week starting from 
+            //1 to 7 but .DayOfWeek strats 0 to 6. Where 0 = Sunday
+            var currentDayOfWeek = (int)timeNow.DayOfWeek + 1;
+            
+            // Selects hours for a particular branch
+            var hours = _context
+                .BranchHours
+                .Where(h => h.Branch.Id == branchId);
+
+            // Selects only the line with todays hours based on currentDayOfWeek.
+            var todaysHours = hours.FirstOrDefault(h => h.DayOfWeek == currentDayOfWeek);
+
+            return currentTimeHour > todaysHours.OpenTime 
+                && currentTimeHour < todaysHours.CloseTime;
         }
     }
 }
