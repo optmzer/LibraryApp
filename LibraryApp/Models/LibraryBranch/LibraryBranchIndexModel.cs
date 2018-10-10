@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Models.LibraryBranch
 {
-    public class LibraryBranchModel
+    public class LibraryBranchIndexModel
     {
+        public IEnumerable<LibraryBranchDetailModel> Branches { get; set; }
     }
 }

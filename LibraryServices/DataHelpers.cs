@@ -23,7 +23,7 @@ namespace LibraryServices
             return hours;
         }
 
-        private static string TimeToString(int time)
+        public static string TimeToString(int time)
         {
             /* My solution.
             string[] hours = new string[] {
