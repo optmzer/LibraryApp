@@ -1,3 +1,60 @@
 ﻿@model LibraryApp.Models.LibraryBranch.LibraryBranchDetailModel
+@{ 
+    ViewBag.Title = Model.Name + " Branch";
+}
 
+<h3>@ViewBag.Title</h3>
 
+<div class="container">
+    <div class="header clearfix detailHeading">
+        <h2 class="text-muted">Branch Information</h2>
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <img src="@Model.ImageUrl" alt="@Model.Name" />
+        </div>
+        <div class="row branchInfo">
+            <div class="col-md-8">
+                <!-- Contacts and Description -->
+                <h2>@Model.Name</h2>
+                <div class="branchContact">
+                    <div id="branchAddress">Address: @Model.Address</div>
+                    <div id="branchTel">Telephone: @Model.Telephone</div>
+                </div>
+                <div id="branchDescription">
+                    <p class="caption">@Model.Description</p>
+                </div>
+                <div class="branchHours">
+                    <ul>
+                        @foreach (var day in Model.BranchHours)
+                        {
+                            <li>@day</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- Contacts and Description -->
+                <table>
+                    <tr>
+                        <td class="itemLabel">Date Opened:</td>
+                        <td class="itemValue">@Model.OpenDate</td>
+                    </tr>
+                    <tr>
+                        <td class="itemLabel">Number of Patrons</td>
+                        <td class="itemValue">@Model.NumberOfPatrons</td>
+                    </tr>
+                    <tr>
+                        <td class="itemLabel">Number of Assets:</td>
+                        <td class="itemValue">@Model.NumberOfAssets</td>
+                    </tr>
+                    <tr>
+                        <td class="itemLabel">Total Value:</td>
+                        <td class="itemValue">@Model.TotlaAssetValue</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

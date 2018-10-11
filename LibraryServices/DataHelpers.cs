@@ -37,9 +37,8 @@ namespace LibraryServices
 
             return hours[time];
             */
-            // Yet simplier one.
-            return TimeSpan.FromHours(time).ToString("HH':'MM");
-
+            // Yet simplier one. MM - Month, mm - minutes.
+            return TimeSpan.FromHours(time).ToString(@"hh\:mm");
         }
 
         public static string DayToString(int dayOfWeek)
