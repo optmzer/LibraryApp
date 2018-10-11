@@ -4,18 +4,18 @@
     font-weight: bold;
 }
 
-    .logo > a {
-        color: #ddd;
-        text-decoration: none;
-        transition-duration: 0.5s;
-    }
+.logo > a {
+    color: #ddd;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
 
-        .logo > a:hover {
-            color: #fff;
-            transition: ease;
-            text-decoration: none;
-            transition-duration: 0.5s;
-        }
+.logo > a:hover {
+    color: #fff;
+    transition: ease;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
 
 .page-content {
     padding: 20px;
@@ -199,6 +199,14 @@
 .branchContact {
     padding: 12px 0 16px 0;
     font-size: 1.2em;
+}
+
+.branchImage {
+    width: 100%
+}
+
+.branchImage > img{
+    width: inherit;
 }
 
 #patronHasFees {

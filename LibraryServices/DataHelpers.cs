@@ -42,8 +42,9 @@ namespace LibraryServices
         }
 
         public static string DayToString(int dayOfWeek)
-        {
-            return Enum.GetName(typeof(DayOfWeek), dayOfWeek);
+        { // Because in DB 1 set as Sunday
+            //but C# interpretes 1 as Monday.
+            return Enum.GetName(typeof(DayOfWeek), dayOfWeek - 1);
         }
     }
 }
